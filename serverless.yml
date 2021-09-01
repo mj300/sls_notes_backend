@@ -2,6 +2,22 @@ service: sls-notes-beckend
 
 frameworkVersion: "2"
 
+plugins:
+  - serverless-offline
+
+custom:
+  allowedHeaders:
+    - Accept
+    - Content-Type
+    - Content-Length
+    - Autorization
+    - X-Amz-Date
+    - X-Api-Key
+    - X-Amz-Security-Token
+    - X-Amz-User-Agent
+    - app_user_id
+    - app_user_name
+
 provider:
   name: aws
   runtime: nodejs12.x
@@ -13,7 +29,69 @@ provider:
   endpointType: regional
   environment:
     NOTES_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:PutItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region,self:provider.region}:*:table/${self:provider.environment.NOTES_TABLE}"
 
+functions:
+  get-note:
+    handler: api/note/get.handler
+    description: GET /note/{note_id}
+    events:
+      - http:
+          path: note/{note_id}
+          method: get
+          cors:
+            origin: "*"
+            headers: ${self:custom.allowedHeaders}
+
+  get-notes:
+    handler: api/note/get-all.handler
+    description: GET /note
+    events:
+      - http:
+          path: note
+          method: get
+          cors:
+            origin: "*"
+            headers: ${self:custom.allowedHeaders}
+
+  add-note:
+    handler: api/note/add.handler
+    description: POST /note
+    events:
+      - http:
+          path: note
+          method: post
+          cors:
+            origin: "*"
+            headers: ${self:custom.allowedHeaders}
+
+  update-note:
+    handler: api/note/update.handler
+    description: PUT /note/{note_id}
+    events:
+      - http:
+          path: note/{note_id}
+          method: put
+          cors:
+            origin: "*"
+            headers: ${self:custom.allowedHeaders}
+
+  delete-note:
+    handler: api/note/delete.handler
+    description: DELETE /note/{timestamp}
+    events:
+      - http:
+          path: note/{timestamp}
+          method: delete
+          cors:
+            origin: "*"
+            headers: ${self:custom.allowedHeaders}
 resources:
   Resources:
     NotesTable:
