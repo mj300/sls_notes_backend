@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+    commands:
+      - echo installing Serverless...
+      - npm install -g serverless
+
+  pre_build:
+    commands:
+      - echo installing source NPM dependencies...
+      - npm install
+
+  build:
+    commands:
+      - echo Deployment started on `date`
+      - echo Deploying with Serverless Framework
+      - serverless deploy --verbose -s $ENV_NAME
+
+  post_build:
+    commands:
+      - echo Deployment completed on `date`
