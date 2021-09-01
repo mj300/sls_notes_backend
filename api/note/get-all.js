@@ -1,5 +1,5 @@
 /**
- *Route : GET /notes
+ *Route : GET /note
  */
 const AWS = require("aws-sdk");
 const { responseError } = require("../../utils/errorHandling");

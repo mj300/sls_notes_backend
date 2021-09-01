@@ -1,5 +1,5 @@
 /**
- *Route : GET /note/n/{note_id}
+ *Route : GET /note/{note_id}
  */
 const AWS = require("aws-sdk");
 const { getResponseHeaders } = require("../../utils/util");

@@ -1,5 +1,5 @@
 /**
- *Route : Put /note/n/{note_id}
+ *Route : Put /note/{note_id}
  */
 const AWS = require("aws-sdk");
 const {

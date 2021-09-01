@@ -1,5 +1,5 @@
 /**
- *Route : DELETE /note/n/{timestamp}
+ *Route : DELETE /note/{timestamp}
  */
 const AWS = require("aws-sdk");
 const { getResponseHeaders, getUserId } = require("../../utils/util");

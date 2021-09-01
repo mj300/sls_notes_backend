@@ -40,10 +40,10 @@ provider:
 functions:
   get-note:
     handler: api/note/get.handler
-    description: GET /note/{note_id}
+    description: GET /note/n/{note_id}
     events:
       - http:
-          path: note/{note_id}
+          path: note/n/{note_id}
           method: get
           cors:
             origin: "*"
@@ -73,10 +73,10 @@ functions:
 
   update-note:
     handler: api/note/update.handler
-    description: PUT /note/{note_id}
+    description: PUT /note/n/{note_id}
     events:
       - http:
-          path: note/{note_id}
+          path: note/n/{note_id}
           method: put
           cors:
             origin: "*"
@@ -84,10 +84,10 @@ functions:
 
   delete-note:
     handler: api/note/delete.handler
-    description: DELETE /note/{timestamp}
+    description: DELETE /note/t/{timestamp}
     events:
       - http:
-          path: note/{timestamp}
+          path: note/t/{timestamp}
           method: delete
           cors:
             origin: "*"
